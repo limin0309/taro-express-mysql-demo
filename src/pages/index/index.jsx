@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { View, Text } from "@tarojs/components";
 import "./index.scss";
+import FlightIndex from "../flight/index";
+import NoExploit from "../../components/NoExploit";
 
 const DEFAULT_TAB_LIST = [
   { title: "机票", tab: "flight", index: 0 },
@@ -39,9 +41,9 @@ export default function Index() {
         <View className="scrollbar" style={innerStyle}></View>
       </View>
       {DEFAULT_TAB_LIST[tabIndex]["tab"] === "flight" ? (
-        <View className="content">1</View>
+        <FlightIndex />
       ) : (
-        <View className="content">2</View>
+        <NoExploit />
       )}
     </View>
   );
