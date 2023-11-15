@@ -83,13 +83,5 @@
     "stylelint": "^14.4.0",
     "ts-node": "^10.9.1",
     "webpack": "5.78.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx,jsx}": "eslint --cache"
   }
 }
