@@ -54,6 +54,8 @@
     "@tarojs/runtime": "3.6.19",
     "@tarojs/shared": "3.6.19",
     "@tarojs/taro": "3.6.19",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

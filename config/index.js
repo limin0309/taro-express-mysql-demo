@@ -26,7 +26,7 @@ export default defineConfig(async (merge, { command, mode }) => {
     },
     framework: "react",
     sass: {
-      data: `$primaryColor: '#0066e6';`,
+      data: `$primaryColor: '#0080FF';`,
     },
     alias: {
       "@/components": path.resolve(__dirname, "..", "src/components"),
