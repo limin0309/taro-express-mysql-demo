@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { View, Text, Swiper, SwiperItem, Image } from "@tarojs/components";
+import { adsReq } from "@/common/api";
 import Tab from "../../../components/Tab";
 import "./index.scss";
 import Taro from "@tarojs/taro";
@@ -20,14 +21,37 @@ const FlIGHT_TABS = [
   },
 ];
 
+// MOCK的adList
+// [
+//   {
+//     id: 1,
+//     imgUrl: "https://static.runoob.com/images/demo/demo2.jpg",
+//   },
+//   {
+//     id: 2,
+//     imgUrl:
+//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw5oaXiGqxZ8B_EZ-oI-vWFLeBrHQfxIKMPt71YYeQ&s",
+//   },
+// ]
+
 const handleTabClick = (id) => {
   console.log(id);
 };
 
 export default function Flight() {
+  const [adList, setAdList] = useState([]);
+
   useEffect(() => {
     getLocationInfo();
+    getAds();
   }, []);
+
+  const getAds = () => {
+    adsReq().then((res) => {
+      console.log(res, "?接口结果");
+      setAdList(res.result);
+    });
+  };
 
   /**
    * 获取经纬度
@@ -57,17 +81,7 @@ export default function Flight() {
       </View>
       <View className="alipay-swiper" style={{ margin: "15px" }}>
         <Swiper className="advs-banner-bd" autoplay circular interval={3000}>
-          {[
-            {
-              id: 1,
-              imgUrl: "https://static.runoob.com/images/demo/demo2.jpg",
-            },
-            {
-              id: 2,
-              imgUrl:
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw5oaXiGqxZ8B_EZ-oI-vWFLeBrHQfxIKMPt71YYeQ&s",
-            },
-          ].map((item) => {
+          {adList.map((item) => {
             return (
               <SwiperItem key={item.id} className="item">
                 <Image className="img" src={item.imgUrl}></Image>
