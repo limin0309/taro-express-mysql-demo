@@ -12,7 +12,7 @@ export default function Main() {
   useState;
   const [cityListObj, setCityListObj] = useState({});
   const [letterList, setLetterList] = useState([]);
-  const [currentLetter, setCurrentLetter] = useState("");
+  const [currentLetter, setCurrentLetter] = useState(""); // 当前选中的字母
   const [query, setQuery] = useState("react");
 
   useEffect(() => {

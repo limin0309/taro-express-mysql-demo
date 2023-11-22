@@ -1,7 +1,5 @@
-import { PureComponent, useEffect, useState } from "react";
-
 import Taro from "@tarojs/taro";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { View, Text } from "@tarojs/components";
 
 import "./index.scss";
@@ -12,12 +10,13 @@ import "./index.scss";
 
 export default function CityItem(props) {
   const dispatch = useDispatch();
-
+  const flightIndex = useSelector((state) => state.flightIndex);
+  console.log(flightIndex, "flightIndex"); // 这样就可以获取namespace键名为flightIndex的initState
   // cityList:每个字母所包含的城市列表
   // label：字母
   const { cityList, label } = props;
   const onCityClick = (cityInfo) => {
-    const { cityType } = props;
+    const { cityType } = flightIndex;
     const { cityId, cityName, airportName } = cityInfo;
     dispatch({
       type: "flightIndex/updateState",
@@ -34,7 +33,7 @@ export default function CityItem(props) {
               arrCityName: cityName,
             },
     });
-    // Taro.navigateBack();
+    Taro.navigateBack();
   };
 
   return (
