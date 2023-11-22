@@ -34,7 +34,7 @@ export default function CityItem(props) {
               arrCityName: cityName,
             },
     });
-    Taro.navigateBack();
+    // Taro.navigateBack();
   };
 
   return (

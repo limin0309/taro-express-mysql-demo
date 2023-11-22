@@ -1,4 +1,5 @@
 import Taro from "@tarojs/taro";
+import { objectToString } from "@/common/utils";
 
 const tools = {
   /**
@@ -6,7 +7,12 @@ const tools = {
    * @{param}	 opts
    */
   request: (opts) => {
-    const { url = "", params = {}, method = "GET", ...rest } = opts;
+    const {
+      url = "",
+      params = {}, // 请求参数
+      method = "GET",
+      ...rest // 剩余参数
+    } = opts;
     return new Promise((resolve, reject) => {
       Taro.request({
         url,
@@ -17,8 +23,10 @@ const tools = {
         .then((res) => {
           const { data } = res;
           if (data?.code === 1) {
+            // 成功
             resolve(data);
           } else {
+            // 不是预期的结果
             reject(res);
           }
         })
@@ -31,45 +39,57 @@ const tools = {
    * 页面loading
    * @{param}
    */
-
   showLoading: (param = "") => {
-    let detOpts = {
+    let dptOpts = {
       title: "加载中...",
       mask: true, // 防止触摸穿透
     };
     if (Object.prototype.toString.call(param) === "[object String]") {
-      detOpts.title = param;
+      dptOpts.title = param;
     } else if (Object.prototype.toString.call(param) === "[object Object]") {
-      detOpts = {
-        ...detOpts,
+      dptOpts = {
+        ...dptOpts,
         ...param,
       };
     }
-    return Taro.showLoading(detOpts);
+    return Taro.showLoading(dptOpts);
   },
-
+  hideLoading: () => {
+    Taro.hideLoading();
+  },
   /**
    * 页面提示
    * @{param}
    */
-  showToast: (param = "") => {
-    let detOpts = {
-      title: "温馨提示",
+  showToast: (param) => {
+    let dptOpts = {
+      title: "温馨提示", // 提示内容
       icon: "none",
       mask: true,
       duration: 2000, // 提示时间
     };
     if (Object.prototype.toString.call(param) === "[object String]") {
-      detOpts.title = param;
+      dptOpts.title = param;
     } else if (Object.prototype.toString.call(param) === "[object Object]") {
-      detOpts = {
-        ...detOpts,
+      dptOpts = {
+        ...dptOpts,
         ...param,
       };
     } else {
       throw new Error("参数类型有误，应该是字符串或者对象");
     }
-    return Taro.showToast(detOpts);
+    return Taro.showToast(dptOpts);
+  },
+  /**
+   *
+   * @{param}	 url 页面路径
+   * @{Object}	 data 页面参数
+   */
+  navigateTo: ({ url, data }) => {
+    const searchStr = objectToString(data);
+    return Taro.navigateTo({
+      url: `${url}?${searchStr}`,
+    });
   },
   /**
    *
